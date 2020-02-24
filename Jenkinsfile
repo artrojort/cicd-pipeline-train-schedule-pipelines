@@ -4,7 +4,7 @@ pipeline {
         stage('build') {
             agent {
                 dockerfile {
-                    filename 'dockerfile.slave'
+                    filename 'Dockerfile.slave'
                     additionalBuildArgs '--build-arg version=1.0.2'
                     args '-v /tmp:/tmp'
                 }
