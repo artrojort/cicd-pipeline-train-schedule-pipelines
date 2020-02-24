@@ -1,9 +1,16 @@
 pipeline {
-    agent {label 'swarm'}
+    agent none 
     stages {
-        stage('Test') {
+        stage('build') {
+            agent {
+                dockerfile {
+                    filename 'dockerfile.slave'
+                    additionalBuildArgs '--build-arg version=1.0.2'
+                    args '-v /tmp:/tmp'
+                }
+            }   
             steps {
-                sh './gradlew build --no-daemon' 
+                sh './gradlew build --no-daemon'
             }
         }
     }
