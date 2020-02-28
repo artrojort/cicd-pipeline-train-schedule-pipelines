@@ -15,7 +15,9 @@ pipeline {
             }
             steps {
                 sh './gradlew build --no-daemon'
-                docker.build registry + ":$BUILD_NUMBER"
+                script {
+                    docker.build registry + ":$BUILD_NUMBER"
+                }
             }
         }
     }
