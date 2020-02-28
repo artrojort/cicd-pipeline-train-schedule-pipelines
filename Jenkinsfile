@@ -11,19 +11,7 @@ pipeline {
             } 
             steps {
                 sh './gradlew build --no-daemon'
-            }
-        }
-        stage('image') {
-            agent any
-            environment {
-                registry = "artrojort/act4image"
-                registryCredential = 'docker'
-            }
-            steps {
-                script {
-                  docker.build registry + ":$BUILD_NUMBER"
-                }
-            }
+            }    
         }
     }
 }
