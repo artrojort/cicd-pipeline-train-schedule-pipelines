@@ -1,4 +1,8 @@
 pipeline {
+    environment {
+        registry = "artrojort/act4image"
+        registryCredential = 'docker'
+    }
     agent none 
     stages {
         stage('build') {
@@ -12,6 +16,10 @@ pipeline {
             steps {
                 sh './gradlew build --no-daemon'
             }
+        stage('Building image') {
+            steps{
+                script {
+                    docker.build registry + ":$BUILD_NUMBER"
         }
     }
 }
