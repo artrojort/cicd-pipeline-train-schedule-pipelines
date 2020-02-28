@@ -16,6 +16,7 @@ pipeline {
             steps {
                 sh './gradlew build --no-daemon'
             }
+        }
         stage('Building image') {
             steps{
                 script {
