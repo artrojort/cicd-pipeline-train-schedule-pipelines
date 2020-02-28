@@ -1,8 +1,4 @@
 pipeline {
-    environment {
-        registry = "artrojort/act4image"
-        registryCredential = 'docker'
-    }
     agent none 
     stages {
         stage('build') {
@@ -12,15 +8,14 @@ pipeline {
                     additionalBuildArgs '--build-arg version=1.0.2'
                     args '-v /tmp:/tmp'
                 }
-            }   
+            }  
+            environment {
+                registry = "artrojort/act4image"
+                registryCredential = 'docker'
+            }
             steps {
                 sh './gradlew build --no-daemon'
-            }
-        }
-        stage('Building image') {
-            steps{
-                sh 'docker images'
-                
+                docker.build registry + ":$BUILD_NUMBER"
             }
         }
     }
